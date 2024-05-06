@@ -1,0 +1,246 @@
+outputting data for the highest 0.1% of SNPs by phenotype effect size in this genome
+this list contains 27 SNPs
+
+SNP id rs4337869, rank 1 in effect size
+genes: OSMR-AS1
+associated phenotype: Antipsychotic drug-induced QTc interval change in schizophrenia standard deviation unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: NR
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 4990.0
+chromosome region: 5p13.1
+reference position: 38728116, position on input genome: 38728218
+
+SNP id rs9542550, rank 2 in effect size
+genes: MTCL1P1 - LINC00348
+associated phenotype: Antipsychotic drug-induced QTc interval change in schizophrenia standard deviation unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: C, population frequency: NR
+genotype of inputted genome: CC
+beta coefficient - strength of effect on phenotype: 2730.0
+chromosome region: 13q21.33
+reference position: 70973380, position on input genome: 71547512
+
+SNP id rs10829470, rank 3 in effect size
+gene: NR
+associated phenotype: Antipsychotic drug-induced QTc interval change in schizophrenia standard deviation unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: NR
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 1800.0
+chromosome region: 10q26.2
+reference position: 128678844, position on input genome: 130477108
+
+SNP id rs10962181, rank 4 in effect size
+gene: SMARCA2
+associated phenotype: Superior frontal gyrus grey matter volume, with standard deviation [NR] unit increase in Right superior frontal gyrus compared to phenotype of reference genome
+variant allele associated with phenotype: G, population frequency: 0.09
+genotype of inputted genome: GG
+beta coefficient - strength of effect on phenotype: 1328.0
+chromosome region: 9p24.3
+reference position: 1595160, position on input genome: 1595160
+
+SNP id rs2623384, rank 5 in effect size
+gene: COL8A1
+associated phenotype: Superior frontal gyrus grey matter volume, with standard deviation [NR] unit decrease in Left superior frontal gyrus compared to phenotype of reference genome
+variant allele associated with phenotype: G, population frequency: 0.39
+genotype of inputted genome: GG
+beta coefficient - strength of effect on phenotype: 724.0
+chromosome region: 3q12.1
+reference position: 99345376, position on input genome: 99064220
+
+SNP id rs8030605, rank 6 in effect size
+gene: RFX7
+associated phenotype: DNA methylation-estimated plasminogen activator inhibitor-1 levels standard deviation [581.18-814.62] unit increase compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: 0.417
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 697.9
+chromosome region: 15q21.3
+reference position: 56212400, position on input genome: 56504598
+
+SNP id rs9642793, rank 7 in effect size
+genes: ADI1P2 - GASAL1
+associated phenotype: Antipsychotic drug-induced QTc interval change in schizophrenia standard deviation unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: NR
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 531.0
+chromosome region: 8q22.3
+reference position: 102721404, position on input genome: 103733632
+
+SNP id rs2346136, rank 8 in effect size
+genes: RDH14, NT5C1B-RDH14
+associated phenotype: Hippocampal volume standard deviation [166.11-409.09] unit increase compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: 0.3836
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 287.599
+chromosome region: 2p24.2
+reference position: 18557279, position on input genome: 18738545
+
+SNP id rs6751439, rank 9 in effect size
+gene: GALNT13
+associated phenotype: Forced expiratory volume in 1 second (occupational environmental exposures interaction), with standard deviation [NR] unit decrease in ineral dus compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: 0.13
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 170.8
+chromosome region: 2q23.3
+reference position: 153874774, position on input genome: 154731287
+
+SNP id rs11983421, rank 10 in effect size
+gene: TMEM178B
+associated phenotype: Gut microbiota alpha diversity (Chao1 index), with standard deviation [86.36-219.64] unit decrease in male compared to phenotype of reference genome
+variant allele associated with phenotype: G, population frequency: 0.02
+genotype of inputted genome: GG
+beta coefficient - strength of effect on phenotype: 153.0
+chromosome region: 7q34
+reference position: 141402102, position on input genome: 141101902
+
+SNP id rs2346136, rank 11 in effect size
+genes: RDH14, NT5C1B-RDH14
+associated phenotype: Right hippocampal volume standard deviation [83.42-213.42] unit increase compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: 0.3836
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 148.419
+chromosome region: 2p24.2
+reference position: 18557279, position on input genome: 18738545
+
+SNP id rs2569191, rank 12 in effect size
+genes: ZMAT2, WDR55, TMCO6, SRA1, SLC35A4, PCDHA2, PCDHA3, PCDHA1, NDUFA2, IK, HARS, HARS2, EIF4EBP3, DND1, CD14, APBB3, ANKHD1, ANKHD1-EIF4EBP3, CD14 - NDUFA2
+associated phenotype: Serum immune biomarker levels, with standard deviation NR unit decrease in sCD14 compared to phenotype of reference genome
+variant allele associated with phenotype: T, population frequency: 0.579
+genotype of inputted genome: TT
+beta coefficient - strength of effect on phenotype: 125.703
+chromosome region: 5q31.3
+reference position: 140634318, position on input genome: 140013903
+
+SNP id rs2888674, rank 13 in effect size
+genes: TMEM176A, TMEM176A - AOC1
+associated phenotype: Forced expiratory volume in 1 second (occupational environmental exposures interaction), with standard deviation [NR] unit increase in ases and fume compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: 0.46
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 123.5
+chromosome region: 7q36.1
+reference position: 150813827, position on input genome: 150510915
+
+SNP id rs6027511, rank 14 in effect size
+genes: intergenic, MIR646HG
+associated phenotype: Lentiform nucleus volume standard deviation [NR] unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: C, population frequency: 0.17
+genotype of inputted genome: CC
+beta coefficient - strength of effect on phenotype: 122.24
+chromosome region: 20q13.33
+reference position: 60323151, position on input genome: 58898209
+
+SNP id rs857160, rank 15 in effect size
+genes: C1orf168, FYB2
+associated phenotype: Hippocampal volume standard deviation [57.58-143.24] unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: T, population frequency: NR
+genotype of inputted genome: TT
+beta coefficient - strength of effect on phenotype: 100.41
+chromosome region: 1p32.2
+reference position: 56776194, position on input genome: 57241867
+
+SNP id rs11264736, rank 16 in effect size
+gene: SLC39A1
+associated phenotype: Lentiform nucleus volume standard deviation [NR] unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: T, population frequency: 0.47
+genotype of inputted genome: TT
+beta coefficient - strength of effect on phenotype: 98.69
+chromosome region: 1q21.3
+reference position: 153966654, position on input genome: 153939130
+
+SNP id rs12625552, rank 17 in effect size
+gene: KIF16B
+associated phenotype: Gut microbiota alpha diversity (Chao1 index) standard deviation [41.7-100.5] unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: G, population frequency: 0.06
+genotype of inputted genome: GG
+beta coefficient - strength of effect on phenotype: 71.1
+chromosome region: 20p12.1
+reference position: 16427627, position on input genome: 16408272
+
+SNP id rs11153056, rank 18 in effect size
+gene: PDSS2
+associated phenotype: Forced expiratory volume in 1 second (environmental tobacco smoke interaction) standard deviation [37.6-96.4] unit increase compared to phenotype of reference genome
+variant allele associated with phenotype: C, population frequency: 0.29
+genotype of inputted genome: CC
+beta coefficient - strength of effect on phenotype: 67.0
+chromosome region: 6q21
+reference position: 107195955, position on input genome: 107517159
+
+SNP id rs2859741, rank 19 in effect size
+genes: GRIK3, GRIK3 - NA
+associated phenotype: Forced expiratory volume in 1 second (environmental tobacco smoke interaction) standard deviation [33.52-84.48] unit increase compared to phenotype of reference genome
+variant allele associated with phenotype: T, population frequency: 0.45
+genotype of inputted genome: TT
+beta coefficient - strength of effect on phenotype: 59.0
+chromosome region: 1p34.3
+reference position: 37043751, position on input genome: 37509352
+
+SNP id rs12045323, rank 20 in effect size
+genes: C1orf187, DRAXIN
+associated phenotype: Obsessive-compulsive disorder or autism spectrum disorder standard deviation [32.42-82.68] unit increase compared to phenotype of reference genome
+variant allele associated with phenotype: T, population frequency: NR
+genotype of inputted genome: CT
+beta coefficient - strength of effect on phenotype: 57.5469
+chromosome region: 1p36.22
+reference position: 11704224, position on input genome: 11764281
+
+SNP id rs10851385, rank 21 in effect size
+genes: LINC02915 - THBS1
+associated phenotype: Cortical surface area, with standard deviation [31.68-43.22] unit decrease in Precentral compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: 0.7705
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 37.44744
+chromosome region: 15q14
+reference position: 39333577, position on input genome: 39625778
+
+SNP id rs11867129, rank 22 in effect size
+gene: ABCA3
+associated phenotype: RR interval (tricyclic/tetracyclic antidepressant use interaction), with standard deviation [22.18-49.22] unit increase in EA compared to phenotype of reference genome
+variant allele associated with phenotype: T, population frequency: 0.09
+genotype of inputted genome: TT
+beta coefficient - strength of effect on phenotype: 35.7
+chromosome region: 16p13.3
+reference position: 2315287, position on input genome: 2365288
+
+SNP id rs6969115, rank 23 in effect size
+genes: intergenic, RPS27P16 - ZNRF2
+associated phenotype: Serum immune biomarker levels, with standard deviation NR unit increase in YKL-40 compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: 0.018
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 35.247
+chromosome region: 7p14.3
+reference position: 30210720, position on input genome: 30250336
+
+SNP id rs11141306, rank 24 in effect size
+gene: C9orf153
+associated phenotype: Gut microbiota alpha diversity (Chao1 index) standard deviation [18.79-47.41] unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: G, population frequency: 0.40
+genotype of inputted genome: GG
+beta coefficient - strength of effect on phenotype: 33.1
+chromosome region: 9q21.33
+reference position: 86229719, position on input genome: 88844634
+
+SNP id rs11787922, rank 25 in effect size
+gene: intergenic
+associated phenotype: Parent of origin effect on receptive language ability (paternal) standard deviation NR unit decrease compared to phenotype of reference genome
+variant allele associated with phenotype: T, population frequency: NR
+genotype of inputted genome: TT
+beta coefficient - strength of effect on phenotype: 23.05
+chromosome region: 9q21.31
+reference position: 80173921, position on input genome: 82788836
+
+SNP id rs13317787, rank 26 in effect size
+genes: GRM7, LMCD1-AS1, LMCD1-AS1
+associated phenotype: Acute kidney injury in coronary artery bypass surgery (creatinine rise) standard deviation [13.19-30.13] unit increase compared to phenotype of reference genome
+variant allele associated with phenotype: A, population frequency: 0.028
+genotype of inputted genome: AA
+beta coefficient - strength of effect on phenotype: 21.66
+chromosome region: 3p25.3
+reference position: 8100265, position on input genome: 8141952
+
+SNP id rs1413536, rank 27 in effect size
+genes: PKN2-AS1
+associated phenotype: Cortical surface area, with standard deviation [15.65-27.61] unit increase in Inferior Parietal compared to phenotype of reference genome
+variant allele associated with phenotype: T, population frequency: 0.51
+genotype of inputted genome: TT
+beta coefficient - strength of effect on phenotype: 21.629944
+chromosome region: 1p22.2
+reference position: 87957714, position on input genome: 88423397
+
