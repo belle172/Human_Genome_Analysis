@@ -1,57 +1,60 @@
 # -*- coding: utf-8 -*- 
-'''
+''' 
 Python 3.10 
 Jasper Bellefeuille - belle172@umn.edu 
+Repository: Human_Genome_Analysis/phenotype_predictor.py 
 
-This file, phenotype_predictor.py, assumes gwas_processor.py has been run first and that the SNP 
-   genome files are in the path 
+This script takes an individual's genotype file and 
 
-Assumptions for input data: 
-    An indicidual's genome file contains rsids or location based on hg38 as reference genome
-'''
+Assumptions: 
+    slim_gwas_catalog.txt has been created by first running gwas_processor.py 
+    The SNP genome files are in the path 
+    An individual's genome file contains rsids or location based on hg38 as reference genome 
+''' 
 
 from matplotlib import pyplot 
 from file_processing import get_tsv_matrix, rsid_matrix 
 
 def genome_processing(genome_matrix, name): 
-    genome_rsids = rsid_matrix(genome_matrix, 0) 
-    genome_rsids.sort() 
-    geno_len = len(genome_rsids) 
 
-    # read processed gwas catalog 
+    # turn genome file into matrix where rsid is the first column 
+    genome_rsids = rsid_matrix(genome_matrix, 0) 
+    genome_rsids.sort() # sort the genome matrix by rsid, so it matches the GWAS catalog 
+    geno_len = len(genome_rsids) # number of genetic locations genotyped in the genome 
+
+    # Initialize processed gwas catalog 
     gwas_rsids = get_tsv_matrix('slim_gwas_catalog.txt') 
-    gwas_hdrs = gwas_rsids.pop(0) 
-    gwas_rsids = rsid_matrix(gwas_rsids, 0) 
+    gwas_hdrs = gwas_rsids.pop(0) # headers from first line of catalog 
+    gwas_rsids = rsid_matrix(gwas_rsids, 0) # reorder catalog so rsid is also the first column 
     gwas_len = len(gwas_rsids) 
 
     # rsid_num chromosome genome_position genotype gwas_headers 
     gnome_hdrs = [gwas_hdrs[0]] + ['chromosome', 'genome position', 'genotype'] + gwas_hdrs[1:] 
 
-    # get the full gwas entry for each annotated snp. this includes snps describing a different 
-    annotated_snps = [] # variant at the same location of a variant in the genome 
+    annotated_snps = [] # List of gwas entries for the annotated SNPs 
 
     # format: rsid, chromosome, position, genotype, rest of gwas columns 
     for snp in genome_rsids: # for loop takes about 50 seconds to run 
-    
+
         # current genome snp is higher than the next cataloged snp, so go to next catalog snp 
         while snp[0] > gwas_rsids[0][0]: 
             gwas_rsids.pop(0) 
 
-        # after possibly moving up in the catalog, check if the next snp in the genome is in the 
-        while snp[0] == gwas_rsids[0][0]: # gwas catalog (might be multiple catalog entries of SNP) 
+        # After possibly moving up in the catalog, check if the next snp in the genome is in the 
+        while snp[0] == gwas_rsids[0][0]: # gwas catalog (might be multiple entries of SNP) 
             gwas_line = gwas_rsids.pop(0) # go to the next snp in the catalog 
             gwas_line = snp + gwas_line[1:] 
             annotated_snps.append(gwas_line) # append the matching snp to the list 
         # else: current genome snp < next cataloged snp, meaning its not cataloged 
 
-    # get indeces of columns 
+    # get indeces of columns in the GWAS catalog matrix 
     allele = gnome_hdrs.index('STRONGEST SNP-RISK ALLELE') 
-    geno = gnome_hdrs.index('genotype') 
+    geno   = gnome_hdrs.index('genotype') 
     effect = gnome_hdrs.index('OR or BETA') 
 
     measured_snps = [] 
 
-    # get the snps that have the allele from the catalog match one of the alleles in the genotype 
+    # Get just the snps that have an allele in the person's genotype 
     for snp in annotated_snps: 
         if (snp[allele][-1]) in snp[geno]: 
             effect_size = float(snp[effect]) 
@@ -90,26 +93,20 @@ def genome_processing(genome_matrix, name):
 # public snp genomes from snpedia - https://www.snpedia.com/index.php/Genomes 
 
 # TODO: update so any snpome file can be input instead of manually naming it in the two lines 
-
-# 
 # genome files are organized by chromosome, then position in chromosome. columns - rsid, 
 lilly = get_tsv_matrix('genome_Lilly_Mendel_v4.txt') # chromosome, position, genotype 
 measured_snps = genome_processing(lilly, 'lilly') # function takes a minute 
-
 # denisova = get_tsv_matrix('denisova.23andme.112') 
 # measured_snps = genome_processing(denisova, 'denisova') 
 
 genome_hdrs = measured_snps.pop(0) 
 
-# =============================================================================
-# input percent of the most significant SNPs to display 
-# ============================================================================= 
+# Input percent of the most significant SNPs to display 
 percent = 0.001 
-
 cutoff = range( int( percent * len(measured_snps) ) ) 
 
 # =============================================================================
-# write significant data file and phenotype graph 
+# Write significant data file and phenotype graph 
 # ============================================================================= 
 s = 'outputting data for the highest ' + str(percent*100) + '% of SNPs by phenotype effect size ' 
 s += 'in this genome\nthis list contains ' + str(len(cutoff)) + ' SNPs\n\n' 
@@ -140,7 +137,7 @@ for i in cutoff:
         ci = ci[10:] 
     elif ci[:4] == '[NR]': 
         ci = ci[5:] 
-    
+
     if measured_snps[i][18][1:-1] == 'AA': 
         s += ', with ' + ci + ' in ' + measured_snps[i][18][1:-1] 
     elif measured_snps[i][18] != 'NR': # if the phenotype effect is specified 
@@ -163,9 +160,7 @@ for i in cutoff:
     out_f.write(s) 
 out_f.close() 
 
-
 # output total effect on phenotypes 
-
 pheno = genome_hdrs.index('DISEASE/TRAIT') 
 direction = genome_hdrs.index('95% CI (TEXT)') 
 
@@ -215,8 +210,7 @@ def pie_labels(value, value_list):
 
 figure, axes = pyplot.subplots(figsize = (12, 8)) 
 axes.pie( effects, autopct = lambda value: pie_labels(value, effects), 
-                              labels = phenos, startangle = 320, 
-                              textprops = dict(color = 'black') ) 
-axes.set_title('portion of total effect for traits in input genome', fontsize = 30) 
-
+                             labels = phenos, startangle = 320, 
+                             textprops = dict(color = 'black') ) 
+axes.set_title('Portion of total effect for traits in input genome', fontsize = 30) 
 

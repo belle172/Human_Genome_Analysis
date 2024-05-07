@@ -7,42 +7,41 @@ Repository: Human_Genome_Analysis/gwas_processor.py
 This script takes in the original GWAS catalog and outputs a smaller file containing a subset of 
     the columns and only SNPs with a specified allele, organized by rsid. 
 
+GWAS catalog: downloaded from https://www.ebi.ac.uk/gwas/docs/file-downloads 
+    All associations v1.0 
+    Catalog file is 251 megabytes, outputted slim_gwas_catalog.txt is 137 megabytes 
+    Reference genome: assembly GRCh38.p14 and dbSNP Build 156 
+        from FAQ page www.ebi.ac.uk/gwas/docs/faq#faq-E2 
+
 Assumptions for input data: 
     The GWAS catalog is named gwas_catalog_v1-associations_e109.tsv 
-    Catalog columns are the same as 03/30/2023 
-
-Reference genome: assembly GRCh38.p14 and dbSNP Build 156 
-    from FAQ page www.ebi.ac.uk/gwas/docs/faq#faq-E2 
-'''
+    Catalog columns are the same as 03/30/2023 download 
+''' 
 
 import math # natural log function 
 from file_processing import get_tsv_matrix, slim_matrix, rsid_matrix 
 
-# original file can be downloaded from https://www.ebi.ac.uk/gwas/docs/file-downloads 
-# All associations v1.0 
-# catalog file is 251 megabytes, outputted slim_gwas_catalog.txt is 137 megabytes 
-
-# gwas catalog - each row is a genetic variant. file organized by ??, then each variant from the 
+# GWAS catalog - each row is a genetic variant. file organized by ??, then each variant from the 
 # same study is together 
 gwas_matrix = get_tsv_matrix('gwas_catalog_v1-associations_e109.tsv') # read gwas catalog 
 
-# original gwas columns, notes, and indeces 
-# [ 'DATE ADDED TO CATALOG' 0  -  'PUBMEDID' (also in link) 1  -  'AUTHOR' 2  -  'DATE' 3 
-#   'JOURNAL' 4  -  'LINK' 5  -  'STUDY' 6  -   'TRAIT' 7  -  'SAMPLE SIZE' 8 
-#   'REPLICATION SAMPLE SIZE' 9  -  'REGION' 10  
-#   'CHR_ID' (also within chromosome position column) 11  -  'CHR_POS' 12  -  'REPORTED GENES' 
-#   'MAPPED_GENE'  -  'UPSTREAM_GENE_ID'  -  'DOWNSTREAM_GENE_ID'  -  'SNP_GENE_IDS' 
-#   'UPSTREAM_GENE_DISTANCE'  -  'DOWNSTREAM_GENE_DISTANCE'  -  'STRONGEST SNP-RISK ALLELE' 20 
-#   'SNPS' 21  -  'MERGED' 22  -  'SNP_ID_CURRENT' 23  -  'CONTEXT' (variant type) 24 
-#   'INTERGENIC' 25  -  'ALLELE FREQUENCY' 26  -  'P-VALUE' 27  -  'PVALUE_MLOG' 28 
-#   'P-VALUE (TEXT)' 29  -  'OR or BETA' 30  -  '95% CI (TEXT)' 31 
-#   'PLATFORM [SNPS PASSING QC]' 32  -  'CNV' (all N: not a copy number variant) 33 ] 
+# Original gwas columns, notes, and indeces 
+#   0:'DATE ADDED TO CATALOG', 1:'PUBMEDID' (also in LINK), 2:'AUTHOR', 3:'DATE', 4:'JOURNAL', 
+#   5:'LINK' (link to pubmed entry), 6:'STUDY', 7:'TRAIT', 8:'SAMPLE SIZE', 
+#   9:'REPLICATION SAMPLE SIZE', 10:'REGION' (first integer is chromosome), 
+#   11:'CHR_ID' (also within CHR_POS), 12:'CHR_POS' (chromosome position), 13:'REPORTED GENES', 
+#   14:'MAPPED_GENE', 15:'UPSTREAM_GENE_ID', 16:'DOWNSTREAM_GENE_ID', 17:'SNP_GENE_IDS', 
+#   18:'UPSTREAM_GENE_DISTANCE', 19:'DOWNSTREAM_GENE_DISTANCE', 20:'STRONGEST SNP-RISK ALLELE' 
+#   21:'SNPS', 22:'MERGED', 23:'SNP_ID_CURRENT', 24:'CONTEXT' (variant type), 25:'INTERGENIC', 
+#   26:'ALLELE FREQUENCY', 27:'P-VALUE', 28:'PVALUE_MLOG', 29:'P-VALUE (TEXT)', 30:'OR or BETA' 
+#   31:'95% CI (TEXT)', 32:'PLATFORM [SNPS PASSING QC]', 
+#   33:'CNV' (all N: not a copy number variant) 
 gwas_headers = gwas_matrix.pop(0) 
 
-# keep columns of interest - link to pubmed entry 5, study 6, trait 7, sample 8, 
-#     region [first int is chromosome] 10, position 12, genes 13, mapped genes 14, 
-#     strongest allele and snp rsid 20, int rsid 23, snp type 24, allele frequency 26, 
-#     pvalue 27, log pvalue 28, pvalue text 29, OR BETA 30, 95% confidence interval 31 
+# keep columns of interest - link:5, study:6, trait:7, sample:8, region:10, position:12, genes:13, 
+#     mapped genes:14, strongest allele and snp rsid:20, int rsid:23, snp type:24, 
+#     allele frequency:26, pvalue:27, log pvalue:28, pvalue text:29, OR BETA:30, 
+#     95% confidence interval:31 
 gwas_cols = [ 5, 6, 7, 8, 10, 12, 13, 14, 20, 23, 24, 26, 27, 28, 29, 30, 31 ] 
 slim_headers = slim_matrix([gwas_headers], gwas_cols) 
 slim_headers = slim_headers[0] 

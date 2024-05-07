@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*- 
 '''
 Python 3.10 
-@author: Jasper Bellefeuille - belle172@umn.edu 
+Jasper Bellefeuille - belle172@umn.edu 
 Repository: Human_Genome_Analysis/file_processing.py 
+
+This script contains functions for doing text processing of files 
 ''' 
 
-# return the data in a tab seperated file as a matrix 
+# Return the data from a tab seperated file as a matrix 
 def get_tsv_matrix(filename): 
     file = open( filename, encoding = "utf8" ) 
     matrix = [] 
@@ -31,7 +33,7 @@ def rsid_matrix(matrix, index):
     column = [] 
     for row in matrix: 
         rsid = row.pop(index) 
-        if 'rs' in rsid: # accept rs<int> or <int> as rsid 
+        if 'rs' in rsid: # accept 'rs<int>' or '<int>' as rsid 
             rsid = rsid[2:] 
         try: 
             output = [int(rsid)] + row 
