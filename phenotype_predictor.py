@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*- 
 ''' 
 Python 3.10 
+Created Mar 30 2023 
 Jasper Bellefeuille - belle172@umn.edu 
 Repository: Human_Genome_Analysis/phenotype_predictor.py 
 
-This script takes an individual's genotype file and 
+This script takes an individual's genotype file and outputs the strongest phenotypic effects 
 
 Assumptions: 
     slim_gwas_catalog.txt has been created by first running gwas_processor.py 
     The SNP genome files are in the path 
-    An individual's genome file contains rsids or location based on hg38 as reference genome 
+    An individual's genome file contains rsids, or location based on hg38 as reference genome 
 ''' 
 
 from matplotlib import pyplot 

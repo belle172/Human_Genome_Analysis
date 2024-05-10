@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*- 
 '''
 Python 3.10 
+Created Mar 30 2023 
 Jasper Bellefeuille - belle172@umn.edu 
-Repository: Human_Genome_Analysis/gwas_processor.py
+Repository: Human_Genome_Analysis/gwas_processor.py 
 
 This script takes in the original GWAS catalog and outputs a smaller file containing a subset of 
     the columns and only SNPs with a specified allele, organized by rsid. 
 
 GWAS catalog: downloaded from https://www.ebi.ac.uk/gwas/docs/file-downloads 
     All associations v1.0 
-    Catalog file is 251 megabytes, outputted slim_gwas_catalog.txt is 137 megabytes 
     Reference genome: assembly GRCh38.p14 and dbSNP Build 156 
         from FAQ page www.ebi.ac.uk/gwas/docs/faq#faq-E2 
 
@@ -106,4 +106,7 @@ for row in gwas_w_allele:
     out_s += '\n' 
     output_file.write(out_s) 
 output_file.close() 
+
+# TODO: use GWAS catalog to create a list of annotated polymorphisms and their rsids 
+# Sort catalog by chromosome (REGION), then location (CHR_POS) 
 

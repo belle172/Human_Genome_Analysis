@@ -1,0 +1,62 @@
+##fileformat=VCFv4.3
+##FILTER=<ID=PASS,Description="All filters passed">
+##ALT=<ID=NON_REF,Description="Represents any possible alternative allele at this location">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype quality">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=MIN_DP,Number=1,Type=Integer,Description="Minimum DP observed within the GVCF block">
+##INFO=<ID=BaseQRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities">
+##INFO=<ID=ClippingRankSum,Number=1,Type=Float,Description="Z-score From Wilcoxon rank sum test of Alt vs. Ref number of hard clipped bases">
+##INFO=<ID=END,Number=1,Type=Integer,Description="Stop position of the interval">
+##INFO=<ID=MQRankSum,Number=1,Type=Float,Description="Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping qualities">
+##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">
+##contig=<ID=chr1,length=248956422,assembly=hg38>
+##contig=<ID=chr2,length=242193529,assembly=hg38>
+##contig=<ID=chr3,length=198295559,assembly=hg38>
+##contig=<ID=chr4,length=190214555,assembly=hg38>
+##contig=<ID=chr5,length=181538259,assembly=hg38>
+##contig=<ID=chr6,length=170805979,assembly=hg38>
+##contig=<ID=chr7,length=159345973,assembly=hg38>
+##contig=<ID=chr8,length=145138636,assembly=hg38>
+##contig=<ID=chr9,length=138394717,assembly=hg38>
+##contig=<ID=chr10,length=133797422,assembly=hg38>
+##contig=<ID=chr11,length=135086622,assembly=hg38>
+##contig=<ID=chr12,length=133275309,assembly=hg38>
+##contig=<ID=chr13,length=114364328,assembly=hg38>
+##contig=<ID=chr14,length=107043718,assembly=hg38>
+##contig=<ID=chr15,length=101991189,assembly=hg38>
+##contig=<ID=chr16,length=90338345,assembly=hg38>
+##contig=<ID=chr17,length=83257441,assembly=hg38>
+##contig=<ID=chr18,length=80373285,assembly=hg38>
+##contig=<ID=chr19,length=58617616,assembly=hg38>
+##contig=<ID=chr20,length=64444167,assembly=hg38>
+##contig=<ID=chr21,length=46709983,assembly=hg38>
+##contig=<ID=chr22,length=50818468,assembly=hg38>
+##contig=<ID=chrX,length=156040895,assembly=hg38>
+##contig=<ID=chrY,length=57227415,assembly=hg38>
+##contig=<ID=chrM,length=16569,assembly=hg38>
+##INFO=<ID=FS,Number=1,Type=Float,Description="Phred-scaled p-value using Fisher's exact test to detect strand bias">
+##INFO=<ID=MQ,Number=1,Type=Float,Description="RMS mapping quality">
+##INFO=<ID=QD,Number=1,Type=Float,Description="Variant Confidence/Quality by Depth">
+##INFO=<ID=SOR,Number=1,Type=Float,Description="Symmetric Odds Ratio of 2x2 contingency table to detect strand bias">
+##FORMAT=<ID=PS,Number=1,Type=Integer,Description="Phaseset ID">
+##FILTER=<ID=ANEUPLOID,Description="Called genotype does not agree with expected ploidy">
+##FILTER=<ID=HETEROPLASMY,Description="Called heterozygous genotype on mitochondrial contig">
+##FORMAT=<ID=GP,Number=G,Type=Float,Description="Estimated Genotype Probability">
+##FILTER=<ID=BOOSTED,Description="Low quality observed genotype that has been boosted by imputation">
+##FILTER=<ID=IMP,Description="Set if true: IMP==1">
+##FILTER=<ID=LOWDP,Description="Set if GQ>20 and 5*ploidy<=DP<10*ploidy and filter is not set to (BOOSTED or IMP)">
+##FILTER=<ID=LOWQ,Description="Set if (GQ<=20 or DP<5*ploidy) and filter is not set to (BOOSTED or IMP)">
+##FILTER=<ID=NOTVALIDATED,Description="Set if variant falls outside of analytic range">
+##FORMAT=<ID=GL,Number=G,Type=Float,Description="Genotype likelihoods">
+##FORMAT=<ID=VAR_TYPE,Number=1,Type=String,Description="Variant type: SNV, INSERTION, DELETION, SUBSTITUTION, MNV, COMPLEX">
+##FORMAT=<ID=VAR_CONTEXT,Number=1,Type=String,Description="Variant genomic context: STR-expansion, STR-contraction, STR-proximal">
+##FORMAT=<ID=STR_MAX_LEN,Number=1,Type=Integer,Description="Maximum observed STR sequence length">
+##FORMAT=<ID=STR_PERIOD,Number=1,Type=Integer,Description="Repetition period for STR variants">
+##FORMAT=<ID=STR_TIMES,Number=1,Type=Float,Description="Number of repetition for STR variants">
+##FORMAT=<ID=STR_TYPE,Number=1,Type=String,Description="Type of STR: STR-short, STR-long">
+##genome=v5
+##inferredSex=F
+##assay_version=v4
+##r2v_run_datetime=2023-02-04T05:32:56.086079Z
