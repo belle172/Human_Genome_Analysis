@@ -10,7 +10,7 @@ This script contains functions for doing text processing of files
 
 # Return the data from a tab seperated file as a matrix 
 def get_tsv_matrix(filename): 
-    file = open( filename, encoding = "utf8" ) 
+    file = open(filename, encoding = 'utf8') 
     matrix = [] 
     for line in file: 
         if line[0] != '#': # go past comment lines 
@@ -28,8 +28,8 @@ def slim_matrix(matrix, columns):
         slim_m.append(slim_row) 
     return slim_m 
 
-# takes in a matrix and the key column containing the int or rsid to sort the matrix 
-# returns the matrix with the specified column put as the first value in each row 
+# Takes a matrix and the column containing the rsid to sort the matrix and returns the matrix 
+# with the specified column put as the first value in each row 
 def rsid_matrix(matrix, index): 
     column = [] 
     for row in matrix: 

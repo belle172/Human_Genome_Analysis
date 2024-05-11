@@ -64,10 +64,6 @@ for line in vcf_file:
         # −10log10 phred quality probability call is wrong conditioned on being variant 
 
         else: # variant! 
-
-            # TODO Data cleanup: ID column has no information 
-            # <*> is preferred over <NON_REF> 
-
             variants_file.write(line) 
             if data[8][0:5] == 'GT:DP': 
                 reads = data[9].split(':') 
@@ -94,3 +90,17 @@ for line in variants_file:
 small_file.close() 
 variants_file.close() 
 
+# =============================================================================
+# Write SNPome file using the locations of variants in the GWAS catalog 
+# =============================================================================
+variants_file = open('genome_variants.txt') 
+snp_file = open('vcf_start.txt', 'w', encoding='utf-8') 
+
+# TODO: check if each variant location in the genome has a corresponding rsid 
+for line in variants_file: 
+        data = line.strip().split('\t') 
+        if data[6] != 'LOWQ' and data[9][0:3] != '0/0' and data[9][0:3] != './.': 
+            small_file.write(line) 
+
+small_file.close() 
+variants_file.close() 
