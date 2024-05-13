@@ -26,8 +26,8 @@ from file_processing import get_tsv_matrix, slim_matrix, rsid_matrix
 gwas_matrix = get_tsv_matrix('gwas_catalog_v1-associations_e109.tsv') # read gwas catalog 
 
 # Original gwas columns, notes, and indeces 
-#   0:'DATE ADDED TO CATALOG',  1:'PUBMEDID' (also in LINK),  2:'AUTHOR',  3:'DATE',  4:'JOURNAL', 
-#   5:'LINK' (link to pubmed entry),  6:'STUDY',  7:'TRAIT',  8:'SAMPLE SIZE', 
+#   0:'DATE ADDED TO CATALOG', 1:'PUBMEDID', 2:'AUTHOR', 3:'DATE', 4:'JOURNAL', 
+#   5:'LINK' (link to pubmed entry, includes pubmedID),  6:'STUDY',  7:'TRAIT',  8:'SAMPLE SIZE', 
 #   9:'REPLICATION SAMPLE SIZE',  10:'REGION' (first integer is chromosome), 
 #   11:'CHR_ID' (also within CHR_POS),  12:'CHR_POS' (chromosome position),  13:'REPORTED GENES', 
 #   14:'MAPPED_GENE',  15:'UPSTREAM_GENE_ID',  16:'DOWNSTREAM_GENE_ID',  17:'SNP_GENE_IDS', 
@@ -81,14 +81,14 @@ for row in gwas_rsids:
         except (IndexError, ValueError): # missing the phenotypic effect 
             1 
 
-g_len = len(gwas_w_allele) 
-gwas_w_allele = [slim_headers] + gwas_w_allele # add headers back to matrix 
 
 # =============================================================================
 # Write output matrix gwas_w_allele to slim_gwas_catalog.txt 
 # =============================================================================
-output_file = open('slim_gwas_catalog.txt', 'w', encoding = 'utf8') 
+g_len = len(gwas_w_allele) 
+gwas_w_allele = [slim_headers] + gwas_w_allele # add headers back to matrix 
 
+output_file = open('slim_gwas_catalog.txt', 'w', encoding = 'utf8') 
 print('# Original gwas catalog cut down from 496,340 entries to', str(g_len), 'entries ordered',
       'by SNP id.\n# This file only contains SNP entries with a specified allele and measured', 
       'beta coefficient.\n# 34 original catalog columns have been cut down to 17 columns.\n', 
@@ -111,6 +111,7 @@ output_file.close()
 # Use GWAS catalog to create a list of annotated polymorphisms and their rsids 
 # =============================================================================
 gwas_w_allele.pop(0) 
+
 chrom = slim_headers.index('REGION') 
 pos = slim_headers.index('CHR_POS') 
 
@@ -123,13 +124,13 @@ for entry in gwas_w_allele:
     if last < rsid: # new rsid number 
         last = rsid 
         i += 1 
-        ids.append(rsid) 
+        ids.append(rsid) # add rsid 
 
         variants.append([]) # initialize parallel list 
         if entry[chrom] != '': 
-            variants[i].append(entry[chrom]) 
+            variants[i].append(entry[chrom]) # chromosome for the variant
         if entry[pos] != '': 
-            variants[i].append(entry[pos]) 
+            variants[i].append(entry[pos]) # chromosomal location 
 
     else: # different catalog entry for the same SNP 
         if entry[chrom] not in variants[i] and entry[chrom] != '': 
@@ -137,10 +138,12 @@ for entry in gwas_w_allele:
         if entry[pos] not in variants[i] and entry[pos] != '': 
             variants[i].append(entry[pos]) 
 
+snp_locs = [] # list of SNPs with chromosome, chromosomal position, locus, and rsid 
+
+# Dictionary of sort()-able order of chromosomes 
 chroms = {'1': 1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, '11':11, 
           '12':12, '13':13, '14':14, '15':15, '16':16, '17':17, '18':18, '19':19, '20':20, 
           '21':21, '22':22, 'X':23, 'Y':24, 'M':25} 
-snp_locs = [] 
 i, j = -1, -1 
 for variant in variants: 
     i += 1 
@@ -148,11 +151,25 @@ for variant in variants:
         j += 1 # SNP with location 
         snp_locs.append([]) # initialize list for SNP 
         if 'p' in variant[0]: 
-            ch = variant[0].split('p')[0]
+            ch = variant[0].split('p')[0] 
         if 'q' in variant[0]: 
             ch = variant[0].split('q')[0] 
 
-        snp_locs[j] = [chroms[ch]] + variant + [ids[i]] 
+        snp_locs[j] = [chroms[ch]] + [int(variant[1])] + [variant[0]] + [ids[i]] 
 
 snp_locs.sort() 
+
+# Output file of variants from GWAS catalog sorted by chromosome and position 
+output_file = open('gwas_snp_locations.txt', 'w', encoding = 'utf8') 
+print('# CHROM\tPOS\tLOC\tRSID', file = output_file) 
+
+for row in snp_locs: 
+    out_s = '' 
+    for i in row: 
+        out_s += str(i) + '\t' 
+
+    out_s = out_s.strip() 
+    out_s += '\n' 
+    output_file.write(out_s) 
+output_file.close() 
 
