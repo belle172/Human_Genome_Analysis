@@ -103,6 +103,8 @@ variants_file = open('genome_variants.txt')
 variants_file.readline() 
 
 snp_file = open('vcf_start.txt', 'w', encoding='utf-8') 
+snp_file.write('#rsid\tchromosome\tposition\tgenotype') 
+
 i_gwas = 0 
 
 # Check if each variant location in the genome has a corresponding rsid 
@@ -115,6 +117,7 @@ for line in variants_file:
         i_gwas += 1 
 
     if int(gwas_locs[i_gwas][1]) == int(data[1]): 
+        s = ''
         snp_file.write(line) # TODO: change to writing rsid chromosome position genotype 
 
 variants_file.close() 
