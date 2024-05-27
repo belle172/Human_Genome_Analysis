@@ -39,7 +39,6 @@ def rsid_matrix(matrix, index):
         try: 
             output = [int(rsid)] + row 
             column.append( output ) 
-        except ValueError: 
-            1 
+        except ValueError: 1 
     return column 
 

@@ -20,6 +20,7 @@ Documentation of the vcf genome file type:
 Columns: POS - position in the reference chromosome 
          REF ALT QUAL FILTER INFO FORMAT [genome] 
 ''' 
+
 from file_processing import get_tsv_matrix 
 
 chroms = {'chr1':0, 'chr2':0, 'chr3':0, 'chr4':0, 'chr5':0, 'chr6':0, 'chr7':0, 'chr8':0, 
@@ -101,24 +102,25 @@ chroms = {'1': 1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':1
 
 variants_file = open('genome_variants.txt') 
 variants_file.readline() 
-
 snp_file = open('vcf_start.txt', 'w', encoding='utf-8') 
 snp_file.write('#rsid\tchromosome\tposition\tgenotype') 
-
 i_gwas = 0 
 
 # Check if each variant location in the genome has a corresponding rsid 
 for line in variants_file: 
     data = line.strip().split('\t') 
     chrom = chroms[data[0].lstrip('chr')] 
-    while int(gwas_locs[i_gwas][0]) < chrom: # genome variant chromosome is greater than catalog 
-        i_gwas += 1 
-    while int(gwas_locs[i_gwas][1]) < int(data[1]): # variant location is greater than catalog 
-        i_gwas += 1 
+    try: 
+        while int(gwas_locs[i_gwas][0]) < chrom: # genome variant chrom is greater than catalog 
+            i_gwas += 1 
 
-    if int(gwas_locs[i_gwas][1]) == int(data[1]): 
-        s = ''
-        snp_file.write(line) # TODO: change to writing rsid chromosome position genotype 
+        while int(gwas_locs[i_gwas][1]) < int(data[1]): # variant location is greater than catalog 
+            i_gwas += 1 
+
+        if int(gwas_locs[i_gwas][1]) == int(data[1]): 
+            s = ''
+            snp_file.write(line) # TODO: change to writing rsid chromosome position genotype 
+    except IndexError: break # if we've gone past the end of the catalog, stop comparing 
 
 variants_file.close() 
 snp_file.close() 

@@ -78,8 +78,7 @@ for row in gwas_rsids:
                 row[ci] = 'standard deviation ' + ci_txt 
             gwas_w_allele.append(row) 
 
-        except (IndexError, ValueError): # missing the phenotypic effect 
-            1 
+        except (IndexError, ValueError): 1 # missing the phenotypic effect 
 
 
 # =============================================================================

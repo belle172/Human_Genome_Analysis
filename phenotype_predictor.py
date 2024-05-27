@@ -90,8 +90,8 @@ def genome_processing(genome_matrix, name):
 
 # ============================================================================= 
 # run get_tsv_matrix() and genome_processing() on input genome 
-# ============================================================================= 
 # public snp genomes from snpedia - https://www.snpedia.com/index.php/Genomes 
+# ============================================================================= 
 
 # TODO: update so any snpome file can be input instead of manually naming it in the two lines 
 # genome files are organized by chromosome, then position in chromosome. columns - rsid, 
