@@ -42,7 +42,6 @@ for line in vcf_file:
     elif line[0:2] == '#C': # include the column header line in the new genome file 
         headers = line.strip().split('\t') 
         form_col = headers.index('FORMAT') 
-
         variants_file.write(line) 
 
         # TODO: use slim_matrix() to skip ID column 
@@ -83,11 +82,13 @@ small_file = open('vcf_start.txt', 'w', encoding='utf-8')
 
 i=0 
 for line in variants_file: 
-    if i < 100000: 
-        i += 1 # limit file size 
-        data = line.strip().split('\t') 
-        if data[6] != 'LOWQ' and data[9][0:3] != '0/0' and data[9][0:3] != './.': 
-            small_file.write(line) 
+    data = line.strip().split('\t') 
+    if data[0] != 'chr1': 
+        if i < 100000: 
+            i += 1 # limit file size 
+            if data[6] != 'LOWQ' and data[9][0:3] != '0/0' and data[9][0:3] != './.': 
+                small_file.write(line) 
+        else: break 
 
 small_file.close() 
 variants_file.close() 
@@ -95,7 +96,7 @@ variants_file.close()
 # =============================================================================
 # Write SNPome file using the locations of variants in the GWAS catalog 
 # =============================================================================
-gwas_locs = get_tsv_matrix('gwas_snp_locations.txt') 
+gwas_locs = get_tsv_matrix('gwas_snp_locations.txt') # chrom pos loc rsid 
 chroms = {'1': 1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, '11':11, 
           '12':12, '13':13, '14':14, '15':15, '16':16, '17':17, '18':18, '19':19, '20':20, 
           '21':21, '22':22, 'X':23, 'Y':24, 'M':25} 
@@ -103,23 +104,32 @@ chroms = {'1': 1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':1
 variants_file = open('genome_variants.txt') 
 variants_file.readline() 
 snp_file = open('vcf_start.txt', 'w', encoding='utf-8') 
-snp_file.write('#rsid\tchromosome\tposition\tgenotype') 
+snp_file.write('#rsid\tchromosome\tposition\tgenotype\n') 
 i_gwas = 0 
 
 # Check if each variant location in the genome has a corresponding rsid 
 for line in variants_file: 
     data = line.strip().split('\t') 
-    chrom = chroms[data[0].lstrip('chr')] 
+    chrom = chroms[data[0].lstrip('chr')] # chromosome of current line 
     try: 
-        while int(gwas_locs[i_gwas][0]) < chrom: # genome variant chrom is greater than catalog 
+        while int(gwas_locs[i_gwas][0]) < chrom: # catalog chrom < genome variant chrom 
             i_gwas += 1 
 
         while int(gwas_locs[i_gwas][1]) < int(data[1]): # variant location is greater than catalog 
             i_gwas += 1 
 
-        if int(gwas_locs[i_gwas][1]) == int(data[1]): 
-            s = ''
-            snp_file.write(line) # TODO: change to writing rsid chromosome position genotype 
+        if int(gwas_locs[i_gwas][1]) == int(data[1]): # write rsid chromosome position genotype 
+            s = gwas_locs[i_gwas][3] + '\t' + data[0].lstrip('chr') + '\t' + data[1] + '\t' 
+
+            if data[8][0:2] == 'GT' and data[9][0:3] == '0/0': 
+                s += data[3] + data[3] + '\n' 
+            elif data[8][0:2] == 'GT' and data[9][0:3] == '0/1': 
+                s += data[3] + data[4] + '\n' 
+            elif data[8][0:2] == 'GT' and (data[9][0:3] == '1/1' or data[9][0:3] == '1|1'): 
+                s += data[4] + data[4] + '\n' 
+            else: s += line 
+
+            snp_file.write(s) 
     except IndexError: break # if we've gone past the end of the catalog, stop comparing 
 
 variants_file.close() 
