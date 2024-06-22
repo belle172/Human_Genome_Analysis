@@ -60,10 +60,6 @@ for line in vcf_file:
         if data[8][0:5] == 'GT:DP' and data[9][0:5] == './.:0': 
             non_data += 1 
 
-        # GQ != 0 means there is at least one alt allele call 
-        # GQ = difference between lowest likelyhood genotype and second lowest likelyhood genotype 
-        # −10log10 phred quality probability call is wrong conditioned on being variant 
-
         else: # variant! 
             variants_file.write(line) 
             if data[8][0:5] == 'GT:DP': 
@@ -94,7 +90,7 @@ small_file.close()
 variants_file.close() 
 
 # =============================================================================
-# Write SNPome file using the locations of variants in the GWAS catalog 
+# Write SNPome file from VCFv4.3 file of variants in the GWAS catalog 
 # =============================================================================
 gwas_locs = get_tsv_matrix('gwas_snp_locations.txt') # chrom pos loc rsid 
 chroms = {'1': 1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, '11':11, 
@@ -120,14 +116,32 @@ for line in variants_file:
 
         if int(gwas_locs[i_gwas][1]) == int(data[1]): # write rsid chromosome position genotype 
             s = gwas_locs[i_gwas][3] + '\t' + data[0].lstrip('chr') + '\t' + data[1] + '\t' 
+            gt = '' 
 
-            if data[8][0:2] == 'GT' and data[9][0:3] == '0/0': 
-                s += data[3] + data[3] + '\n' 
-            elif data[8][0:2] == 'GT' and data[9][0:3] == '0/1': 
-                s += data[3] + data[4] + '\n' 
-            elif data[8][0:2] == 'GT' and (data[9][0:3] == '1/1' or data[9][0:3] == '1|1'): 
-                s += data[4] + data[4] + '\n' 
-            else: s += line 
+            if data[8][0:2] == 'GT' and data[9][0:3] != './.': # genotype is given 
+                gt = data[9][0] + data[9][2] 
+
+                # data validation 
+                if data[9][0:3] not in ['0/0', '0/1', '0|1', '1|0', '1/1', '1|1']: print(line) 
+
+            # genotype isn't called (below 95% confidence) but genotype probability is given 
+            elif data[8][0:5] == 'GT:GP': 
+                gp = data[9].split(':')[1].split(',') 
+                likely_gt = gp.index(max(gp)) 
+                if likely_gt == 0: gt = '00' 
+                if likely_gt == 1: gt = '10' 
+                if likely_gt == 2: gt = '11' 
+
+            else: s += line # genotype and probability aren't given 
+
+            # GQ != 0 means there is at least one alt allele call 
+            # GQ = difference between lowest likelyhood genotype and second lowest likelyhood genotype 
+            # −10log10 phred quality probability call is wrong conditioned on being variant 
+
+            for allele in gt: 
+                if allele == '0': s += data[3] # reference allele, given in column 3 
+                if allele == '1': s += data[4] # alt allele, given in column 4 
+            s += '\n' 
 
             snp_file.write(s) 
     except IndexError: break # if we've gone past the end of the catalog, stop comparing 
