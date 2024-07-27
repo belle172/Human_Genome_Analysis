@@ -70,6 +70,7 @@ vcf_file.close()
 info_file.close() 
 variants_file.close() 
 
+
 # =============================================================================
 # Write a smaller file with a few of the entries in the genome file 
 # =============================================================================
@@ -89,8 +90,9 @@ for line in variants_file:
 small_file.close() 
 variants_file.close() 
 
+
 # =============================================================================
-# Write SNPome file from VCFv4.3 file of variants in the GWAS catalog 
+# Write SNPome file from a VCFv4.3 file of genome variants 
 # =============================================================================
 gwas_locs = get_tsv_matrix('gwas_snp_locations.txt') # chrom pos loc rsid 
 chroms = {'1': 1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, '10':10, '11':11, 
@@ -108,21 +110,23 @@ for line in variants_file:
     data = line.strip().split('\t') 
     chrom = chroms[data[0].lstrip('chr')] # chromosome of current line 
     try: 
-        while int(gwas_locs[i_gwas][0]) < chrom: # catalog chrom < genome variant chrom 
-            i_gwas += 1 
 
-        while int(gwas_locs[i_gwas][1]) < int(data[1]): # variant location is greater than catalog 
-            i_gwas += 1 
+        # catalog chrom < genome variant chrom 
+        while int(gwas_locs[i_gwas][0]) < chrom: i_gwas += 1 
+
+        # variant location is greater than catalog 
+        while int(gwas_locs[i_gwas][1]) < int(data[1]): i_gwas += 1 
 
         if int(gwas_locs[i_gwas][1]) == int(data[1]): # write rsid chromosome position genotype 
             s = gwas_locs[i_gwas][3] + '\t' + data[0].lstrip('chr') + '\t' + data[1] + '\t' 
             gt = '' 
 
             if data[8][0:2] == 'GT' and data[9][0:3] != './.': # genotype is given 
-                gt = data[9][0] + data[9][2] 
+                gt = data[9][0] + data[9][2] # change genotype format from './.' to '..' 
 
                 # data validation 
-                if data[9][0:3] not in ['0/0', '0/1', '0|1', '1|0', '1/1', '1|1']: print(line) 
+                if data[9][0:3] not in ['0/0', '0/1', '0|1', '1|0', '1/1', '1|1', '1/2']: 
+                    print(line) 
 
             # genotype isn't called (below 95% confidence) but genotype probability is given 
             elif data[8][0:5] == 'GT:GP': 
@@ -132,15 +136,26 @@ for line in variants_file:
                 if likely_gt == 1: gt = '10' 
                 if likely_gt == 2: gt = '11' 
 
-            else: s += line # genotype and probability aren't given 
-
-            # GQ != 0 means there is at least one alt allele call 
             # GQ = difference between lowest likelyhood genotype and second lowest likelyhood genotype 
             # −10log10 phred quality probability call is wrong conditioned on being variant 
+            elif data[8][0:8] == 'GT:DP:GQ': # gene quality is given 
+                gq = data[9].split(':')[2] 
+                if gq == '0': gt = '00' # GQ == 0: all calls are reference. Set gt to ref/ref 
+
+                # GQ != 0: means there is at least one alt allele call 
+                else: 
+                    s += line # there is at least one alt allele read 
+                    print(line) 
+
+            # TODO: parse all other cases 
+            else: 
+                s += line # genotype and probability aren't given 
+                print(line) 
 
             for allele in gt: 
                 if allele == '0': s += data[3] # reference allele, given in column 3 
-                if allele == '1': s += data[4] # alt allele, given in column 4 
+                if allele == '1': s += data[4].split(',')[0] # first alt allele, given in column 4 
+                if allele == '2': s += data[4].split(',')[1] # second alt allele 
             s += '\n' 
 
             snp_file.write(s) 
