@@ -2,7 +2,7 @@
 '''
 Python 3.10 
 Created Mar 30 2023 
-Jasper Bellefeuille - belle172@umn.edu 
+Jasper Bellefeuille - jasperbellefeuille@gmail.com 
 Repository: Human_Genome_Analysis/gwas_processor.py 
 
 This script takes in the original GWAS catalog and outputs a smaller file containing a subset of 
@@ -18,7 +18,7 @@ Assumptions for input data:
     Catalog columns are the same as 03/30/2023 download 
 ''' 
 
-import math # natural log function 
+import math # Get natural log function 
 from file_processing import get_tsv_matrix, slim_matrix, rsid_matrix 
 
 # GWAS catalog - each row is a genetic variant. file organized by ??, then each variant from the 
@@ -52,7 +52,7 @@ slim_gwas = slim_matrix(gwas_matrix, gwas_cols) # new matrix with fewer columns
 gwas_rsids = rsid_matrix(slim_gwas, rsid_col) 
 gwas_rsids.sort() 
 
-# fix header column with rsid first 
+# Fix header column with rsid first 
 rsid_col = slim_headers.pop(rsid_col) 
 slim_headers = [rsid_col] + slim_headers 
 
@@ -64,9 +64,9 @@ effect = slim_headers.index('OR or BETA')
 ci = slim_headers.index('95% CI (TEXT)') 
 
 for row in gwas_rsids: 
-    if row[allele][-1] != '?': # remove entries that don't have a specified allele 
+    if row[allele][-1] != '?': # Remove entries that don't have a specified allele 
 
-        try: # remove entries that don't have a specified beta coefficient 
+        try: # Remove entries that don't have a specified beta coefficient 
             effect_size = float(row[effect]) 
 
             # TODO: move this to a new loop to debug / look at output from just float() line 

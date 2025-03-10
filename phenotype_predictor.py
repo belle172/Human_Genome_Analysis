@@ -2,7 +2,7 @@
 ''' 
 Python 3.10 
 Created Mar 30 2023 
-Jasper Bellefeuille - belle172@umn.edu 
+Jasper Bellefeuille - jasperbellefeuille@gmail.com 
 Repository: Human_Genome_Analysis/phenotype_predictor.py 
 
 This script takes an individual's genotype file and outputs the strongest phenotypic effects 
@@ -18,7 +18,7 @@ from file_processing import get_tsv_matrix, rsid_matrix
 
 def genome_processing(genome_matrix, name): 
 
-    # turn genome file into matrix where rsid is the first column 
+    # Turn genome file into matrix where rsid is the first column 
     genome_rsids = rsid_matrix(genome_matrix, 0) 
     genome_rsids.sort() # sort the genome matrix by rsid, so it matches the GWAS catalog 
     geno_len = len(genome_rsids) # number of genetic locations genotyped in the genome 
@@ -93,7 +93,7 @@ def genome_processing(genome_matrix, name):
 # public snp genomes from snpedia - https://www.snpedia.com/index.php/Genomes 
 # ============================================================================= 
 
-# TODO: update so any snpome file can be input instead of manually naming it in the two lines 
+# TODO: update so any SNPome file can be input instead of manually naming it in the two lines 
 # genome files are organized by chromosome, then position in chromosome. columns - rsid, 
 lilly = get_tsv_matrix('genome_Lilly_Mendel_v4.txt') # chromosome, position, genotype 
 measured_snps = genome_processing(lilly, 'lilly') # function takes a minute 
